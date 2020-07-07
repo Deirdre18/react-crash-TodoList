@@ -1,4 +1,5 @@
 # react-crash-TodoList
+(reinstatement of project in a previous repository "react-todo-app")
 
 Video tutorial taken from Traversy Media - https://www.youtube.com/watch?v=sBws8MSXN7A
 

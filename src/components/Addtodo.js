@@ -1,6 +1,7 @@
-//class based component
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import React, { Component } from 'react'
+//class based component
 
 export class Addtodo extends Component {
     //adding functionality. Here we have a an input field. Usually you're going to want to have your fields as a piece of State for that component, so we add a state value to our state object
@@ -13,7 +14,7 @@ export class Addtodo extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         //what we want to happen is that we need to pass this up, so we call a props method, just like makeComplete and delete. As a parameter we need to pass title up (whatever we're typing in, as we're adding a title)
-        this.props.Addtodo(this.state.title);
+        this.props.addtodo(this.state.title);
         //Here is we clearing field and setting our state object back to nothing after it's submitted. We have to again pass this up one level, to addTodo - so we go to App.js (as appTodo is embedded in App.js
         this.setState({ title: ''});
     }
@@ -22,7 +23,6 @@ export class Addtodo extends Component {
     //this will give us the value of whatever we type in (so what we're doing is setting the title for whatever we type in.  We get the value using this event parameter). But what if we had other fields like name, email, password etc - we wouldn't want to do an onChange for each one, so this is what we do - so as long as name is equal to what's in the field (in this case title), that should be fine. We just have one field here but you can use as many fields as you want. 
     //onChange = (e) => {this.setState({ title: e.target.value })}
     onChange = (e) => {this.setState({ [e.target.name]: e.target.value })}
-
 
     render() {
         return (

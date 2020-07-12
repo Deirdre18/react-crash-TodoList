@@ -7,14 +7,12 @@ import Todos from './components/Todos';
 import About from './components/pages/About';
 import Addtodo from './components/Addtodo';
 //this will generate an id for each item added
-//import {v4 as uuid} from "uuid";
 import axios from 'axios';
-
+//import {v4 as uuid} from "uuid";
+import {v4 as uuid} from "uuid";
 import './App.css';
 
-
 //const id = uuid()
-
 
 class App extends Component {
   //render method 
@@ -25,7 +23,7 @@ class App extends Component {
     state = {
       todos: []
     }
-//usin another lifecycle method 'componentDidMount' which runs after the component mounts
+//using another lifecycle method 'componentDidMount' which runs after the component mounts
 componentDidMount () {
   //this will give us a promise, then a response and it will have a data property attached. Adding a parameter limiting todos to 10
   axios.get ('https://jsonplaceholder.typicode.com/todos?_limit=10')
@@ -68,11 +66,13 @@ delTodo = (id) => {
   //passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
   this.setState ({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
 }
+
+// Add Todo
 //now we need to add Addtodo to our state, so we use setState and spread operator. We can't just change it, we basically have to make a copy of it and that's what the spread operator does. Creating object, title = title which is passed in and completed 
 
 //putting newTodo as a variable. So this should take the newTodo and add it to the state. When we add a new object it gets added but if we add another new object it has same id (4) as previous added object. When we get to json placeholder, an id is given when a new object is created
 
-// now if we add to do we want to make a post request to the rest api right now and we're just adding it to the UI which we still want to do but we also we want to make the request to Jason placeholder and then take the response and put that in here okay and we shouldn't have to use UUID anymore either so we can actually I'll just comment it out. We want to do a post request, which doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that)
+// now if we add a to do, we want to make a post request to the rest API right now and we're just adding it to the UI, which we still want to do but we also we want to make the request to json placeholder and then take the response and put that in here okay. We shouldn't have to use UUID anymore either so we can actually just comment it out. We want to do a post request, which doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that). So this will give us a promise back and give us a response
 
 addtodo = title => {
   axios
@@ -84,7 +84,7 @@ addtodo = title => {
     //this then gives us a promise and a response
     .then(res => {
       //res.data.id = uuid.v4();
-      //this will result in whatever it's going to give us back, which is the new todo (res.data). W can now test by adding a new todo, and it's added - what happened is that it went out and made the request to json placeholder and came back with information including id. 
+      //this will result in whatever it's going to give us back, which is the new todo (res.data). We can now test by adding a new todo, and it's added - what happened is that it went out and made the request to json placeholder and came back with information including id, and it got added to our UI, because if it didn't, this setState wouldn't have happened or if it hadn't gone through correctly. In fact, we could add a .catch error, but we're really running out of time. 
       this.setState({ todos: [...this.state.todos, res.data] });
     });
 };

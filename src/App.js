@@ -6,7 +6,7 @@ import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import About from './components/pages/About';
 import Addtodo from './components/Addtodo';
-//this will generate an id for each item added
+//this will generate an id for each item added. Axios is a http library
 import axios from 'axios';
 //import {v4 as uuid} from "uuid";
 import {v4 as uuid} from "uuid";
@@ -63,11 +63,12 @@ markComplete =(id ) => {
 //Manipulating our state by removing one of the deleted todos, and we use filter method (high order array method, which loops through and based on a condition it will return another array). We only want to return todos that don't match the id passed in, because we want to get rid of that one
 
 // delTodo = (id) => {
-//   //passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
+// passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
 //   this.setState ({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
 // }
 
   // Delete Todo
+  // this deletes it on the server and also updates the UI
   delTodo = id => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res =>
       this.setState({
@@ -90,7 +91,7 @@ markComplete =(id ) => {
         //completed with always be false
         completed: false
       })
-      //this then gives us a promise and a response
+      //this then gives us a promise back and then will give us a response
       .then(res => {
         //res.data.id = uuid.v4();
         //this will result in whatever it's going to give us back, which is the new todo (res.data). We can now test by adding a new todo, and it's added - what happened is that it went out and made the request to json placeholder and came back with information including id, and it got added to our UI, because if it didn't, this setState wouldn't have happened or if it hadn't gone through correctly. In fact, we could add a .catch error, but we're really running out of time. 

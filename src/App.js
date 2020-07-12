@@ -62,75 +62,68 @@ markComplete =(id ) => {
 
 //Manipulating our state by removing one of the deleted todos, and we use filter method (high order array method, which loops through and based on a condition it will return another array). We only want to return todos that don't match the id passed in, because we want to get rid of that one
 
-delTodo = (id) => {
-  //passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
-  this.setState ({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
-}
-
-// Add Todo
-//now we need to add Addtodo to our state, so we use setState and spread operator. We can't just change it, we basically have to make a copy of it and that's what the spread operator does. Creating object, title = title which is passed in and completed 
-
-//putting newTodo as a variable. So this should take the newTodo and add it to the state. When we add a new object it gets added but if we add another new object it has same id (4) as previous added object. When we get to json placeholder, an id is given when a new object is created
-
-// now if we add a to do, we want to make a post request to the rest API right now and we're just adding it to the UI, which we still want to do but we also we want to make the request to json placeholder and then take the response and put that in here okay. We shouldn't have to use UUID anymore either so we can actually just comment it out. We want to do a post request, which doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that). So this will give us a promise back and give us a response
-
-addtodo = title => {
-  axios
-    .post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      //completed with always be false
-      completed: false
-    })
-    //this then gives us a promise and a response
-    .then(res => {
-      //res.data.id = uuid.v4();
-      //this will result in whatever it's going to give us back, which is the new todo (res.data). We can now test by adding a new todo, and it's added - what happened is that it went out and made the request to json placeholder and came back with information including id, and it got added to our UI, because if it didn't, this setState wouldn't have happened or if it hadn't gone through correctly. In fact, we could add a .catch error, but we're really running out of time. 
-      this.setState({ todos: [...this.state.todos, res.data] });
-    });
-};
-
-
-// Addtodo = (title) => {
-//   const newTodo = {
-//     id: uuid(),
-//     //can just do title, in es6 since key and value are the same
-//     title,
-//     completed: false
-//   }
-//   //copying what we have currently
-//   this.setState ({ todos: [...this.state.todos, newTodo] });
+// delTodo = (id) => {
+//   //passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
+//   this.setState ({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
 // }
 
-// Addtodo = (title) => {
-//   console.log(title)
-// }
+  // Delete Todo
+  delTodo = id => {
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res =>
+      this.setState({
+        todos: [...this.state.todos.filter(todo => todo.id !== id)]
+      })
+    );
+  };
 
-render() {
-  return (
-    <Router>
-      <div className="App">
-        <div className="container">
-          <Header />
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <React.Fragment>
-                <Addtodo addtodo={this.addtodo} />
-                <Todos
-                  todos={this.state.todos}
-                  markComplete={this.markComplete}
-                  delTodo={this.delTodo}
-                />
-              </React.Fragment>
-            )}
-          />
-          <Route path="/about" component={About} />
+  // Add Todo
+  //now we need to add Addtodo to our state, so we use setState and spread operator. We can't just change it, we basically have to make a copy of it and that's what the spread operator does. Creating object, title = title which is passed in and completed 
+
+  //putting newTodo as a variable. So this should take the newTodo and add it to the state. When we add a new object it gets added but if we add another new object it has same id (4) as previous added object. When we get to json placeholder, an id is given when a new object is created
+
+  // now if we add a to do, we want to make a post request to the rest API right now and we're just adding it to the UI, which we still want to do but we also we want to make the request to json placeholder and then take the response and put that in here okay. We shouldn't have to use UUID anymore either so we can actually just comment it out. We want to do a post request, which doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that). So this will give us a promise back and give us a response
+
+  addtodo = title => {
+    axios
+      .post('https://jsonplaceholder.typicode.com/todos', {
+        title,
+        //completed with always be false
+        completed: false
+      })
+      //this then gives us a promise and a response
+      .then(res => {
+        //res.data.id = uuid.v4();
+        //this will result in whatever it's going to give us back, which is the new todo (res.data). We can now test by adding a new todo, and it's added - what happened is that it went out and made the request to json placeholder and came back with information including id, and it got added to our UI, because if it didn't, this setState wouldn't have happened or if it hadn't gone through correctly. In fact, we could add a .catch error, but we're really running out of time. 
+        this.setState({ todos: [...this.state.todos, res.data] });
+      });
+  };
+  
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <div className="container">
+            <Header />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <React.Fragment>
+                  <Addtodo addtodo={this.addtodo} />
+                  <Todos
+                    todos={this.state.todos}
+                    markComplete={this.markComplete}
+                    delTodo={this.delTodo}
+                  />
+                </React.Fragment>
+              )}
+            />
+            <Route path="/about" component={About} />
+          </div>
         </div>
-      </div>
-    </Router>
-  );
-}
-}
-
-export default App;
+      </Router>
+    );
+  }
+  }
+  
+  export default App;

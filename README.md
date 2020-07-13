@@ -6,6 +6,15 @@ Video tutorial taken from Traversy Media - https://www.youtube.com/watch?v=sBws8
 In this crash course you will learn what React JS is and the fundamentals such as components, state, props, JSX, events, etc. 
 
 
+## Deploying a React Application
+To deploy you don't have to have a back-end server. If you're not using Express or anything like that you can pretty deploy anywhere even github pages or net life, or with a simple C panel web post. 
+
+## npm run build
+
+Use 'npm run build' to create a production build, which creates an extra folder called 'Build', which contains all static files (js and css), and index.html. We've just been dealing with the react front-end server. These are static assets and this could be uploaded and should work.
+
+If you are using a full-stack app (like Express), you would put these in a public directory or similar. But react can be used with anything (express backend, PHP, Python, Django, Flask). React can be used with any backend at all, as a frontend client. 
+
 This project wasn't bootstrapped but can be, with [Create React App](https://github.com/facebook/create-react-app). Custom CSS was used throughout this project.
 
 ## Available Scripts

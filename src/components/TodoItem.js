@@ -54,7 +54,9 @@ export class TodoItem extends Component {
 
 //so name of class (Todos) and then a single object of Prop, and is required. This is good practice to do
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
+    todo: PropTypes.object.isRequired,
+    markComplete: PropTypes.func.isRequired,
+    delTodo: PropTypes.func.isRequired,
 }
 
 //can also use variable - only need one set of {}

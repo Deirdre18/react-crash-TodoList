@@ -64,11 +64,12 @@ markComplete =(id ) => {
 
 // delTodo = (id) => {
 // passing in our state object (we're dealing with the todos. We basically everything that's already there and use spread operator for that, which is 3 dots. So we want to filter out the id that is not the id here - in other words it's going to filter out the id that we're deleting). So when we click on item to delete, it will delete it but will come back when we reload, as we're not persisting to a database (even jason placeholder doesn't delete it from database, it doesn't have a backend, as react is a frontend UI framework/library, which takes care of the delete)
+
 //   this.setState ({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
 // }
 
   // Delete Todo
-  // this deletes it on the server and also updates the UI
+  // This will make the delete request and give us a promise back. This deletes it on the server and also updates the UI. So if this was our real backend (this placeholder) - if we were using node, express, PHP or Python, or some REST API, it would delete it from the database, and then would delete it all from the UI
   delTodo = id => {
     axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res =>
       this.setState({
@@ -82,7 +83,9 @@ markComplete =(id ) => {
 
   //putting newTodo as a variable. So this should take the newTodo and add it to the state. When we add a new object it gets added but if we add another new object it has same id (4) as previous added object. When we get to json placeholder, an id is given when a new object is created
 
-  // now if we add a to do, we want to make a post request to the rest API right now and we're just adding it to the UI, which we still want to do but we also we want to make the request to json placeholder and then take the response and put that in here okay. We shouldn't have to use UUID anymore either so we can actually just comment it out. We want to do a post request, which doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that). So this will give us a promise back and give us a response
+  //when we're adding something we use a post request. 
+
+  // now if we add a to do, we want to make a post request to the rest API right now and we're just adding it to the UI, which we still want to do but we also we want to make the request to json placeholder and then take the response and put that in here okay. We shouldn't have to use UUID anymore either so we can actually just comment it out. We want to do a post request, however it doesn't actually get placed on their server, so it mimicks a real life backend. The second parameter will be an object with the data that we want to send, so it's going to be the title, which is passed in here (since it's the same we don't even need to do that). 
 
   addtodo = title => {
     axios

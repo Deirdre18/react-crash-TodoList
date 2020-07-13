@@ -36,9 +36,18 @@ class Todos extends Component {
   //PropTypes
   //we want to define any prop-types for this class
 
-  //so name of class (Todos) and then it's going to be an array of objects of Prop, and is required. This is good practice to do
+  // name of class (Todos) and then it's going to be an array of objects of Prop, and is required. This is good practice to do
+  // Todos.propTypes = { 
+  //   todos: PropTypes.array.isRequired
+  //   }
+
   Todos.propTypes = { 
-    todos: PropTypes.array.isRequired
-    }
+    todos: PropTypes.array.isRequired,
+    //these are functions, not arrays
+    markComplete: PropTypes.func.isRequired,
+    delTodo: PropTypes.func.isRequired,
+    } 
+
+  //adding PropTypes for these methods (todos, markComplete, delTodo)   
 
   export default Todos;
